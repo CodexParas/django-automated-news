@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'froala_editor',
     'home',
-    'rest_framework'
+    'rest_framework',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -144,8 +145,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL_HOST_USER = 'email'
 # EMAIL_HOST_PASSWORD = 'password'
 
-
-
+CRONTAB_COMMAND_SUFFIX = '2>&1'
+CRONJOBS = [
+('* * * * *', 'home.cron.task')
+]
 
 
 
