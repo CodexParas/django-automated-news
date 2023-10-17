@@ -12,8 +12,21 @@ def logout_view(request):
 
 
 def home(request):
-    context = {'blogs': BlogModel.objects.all()}
+    context = {'blogs': BlogModel.objects.order_by("-created_at")[:9]}
     return render(request, 'home.html', context)
+
+def page(request,no):
+    if no=='1' or BlogModel.objects.count()//9<int(no)-1:
+        return redirect('/')
+    view_op=1
+    if BlogModel.objects.count()//9<int(no):
+        view_op=0
+    
+    no = int(no)
+    start=(no-1)*9
+    #start=int(no)
+    context = {'blogs': BlogModel.objects.order_by("-created_at")[start:start+9],'no':no,'view_op':view_op}
+    return render(request, 'page.html', context)
 
 
 def login_view(request):
