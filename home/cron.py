@@ -1,12 +1,6 @@
 import requests
-# import os
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Blog.settings')
-# import django
-# django.setup()
 from .models import BlogModel
 from pathlib import Path
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 from django.contrib.auth.models import User
 user = User.objects.get(username="parasgupta")
@@ -23,7 +17,6 @@ def task():
     slug=title.replace(' ','-')
     content="DEMO"
     image="blog/greenland_01a.png"
-
     blog_obj = BlogModel.objects.create(
                 user=user, title=title,
                 content=content, image=image, slug=slug
