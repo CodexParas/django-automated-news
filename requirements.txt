@@ -6,4 +6,5 @@ Pillow==9.2.0
 pytz==2022.1
 sqlparse==0.4.2
 tzdata==2022.1
-django-crontab==0.6.0
+django-crontab==0.7.1
+requests

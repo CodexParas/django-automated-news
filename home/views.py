@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+import random
 # Create your views here.
 
 from .form import *
@@ -12,20 +12,24 @@ def logout_view(request):
 
 
 def home(request):
-    context = {'blogs': BlogModel.objects.order_by("-created_at")[:9]}
-    return render(request, 'home.html', context)
+    view_op=1
+    if BlogModel.objects.count()<9:
+        view_op=0
+    context = {'blogs': BlogModel.objects.order_by("-created_at")[:9],'tops': BlogModel.objects.order_by("-created_at")[:3], 'view_op':view_op}
+    return render(request, 'home_new.html', context)
 
 def page(request,no):
-    if no=='1' or BlogModel.objects.count()//9<int(no)-1:
+    post_no=9
+    if no=='1' or BlogModel.objects.count()//post_no<int(no)-1:
         return redirect('/')
     view_op=1
-    if BlogModel.objects.count()//9<int(no):
+    if BlogModel.objects.count()//post_no<int(no):
         view_op=0
     
     no = int(no)
-    start=(no-1)*9
+    start=(no-1)*post_no
     #start=int(no)
-    context = {'blogs': BlogModel.objects.order_by("-created_at")[start:start+9],'no':no,'view_op':view_op}
+    context = {'blogs': BlogModel.objects.order_by("-created_at")[start:start+post_no],'tops': BlogModel.objects.order_by("-created_at")[:3],'no':no,'view_op':view_op}
     return render(request, 'page.html', context)
 
 
@@ -34,13 +38,28 @@ def login_view(request):
 
 
 def blog_detail(request, slug):
-    context = {}
+    blogs = list(BlogModel.objects.all())
+    random_blogs = random.sample(blogs,2)
+    #context = {}
+    next_post='0'
     try:
         blog_obj = BlogModel.objects.filter(slug=slug).first()
-        context['blog_obj'] = blog_obj
+        if blog_obj:
+            id=blog_obj.id
+            print(id)
+        else:
+            print("Fuck")
+        if id != BlogModel.objects.last().id:
+            next_post = BlogModel.objects.filter(id=id+1).first()
+        previous_post = BlogModel.objects.filter(id=id-1).first()
+        print(previous_post.slug)
+        
+        blog_obj.views=blog_obj.views+1
+        blog_obj.save()
+        context = {'blog_obj':blog_obj,'previous_post':previous_post,'next_post':next_post,'random_blogs':random_blogs, 'tops': BlogModel.objects.order_by("-created_at")[:3]}
     except Exception as e:
         print(e)
-    return render(request, 'blog_detail.html', context)
+    return render(request, 'blog.html', context)
 
 
 def see_blog(request):
