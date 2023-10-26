@@ -11,7 +11,7 @@
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{tops.0.category}}</a></span>
+                                <span class="bg-orange"><a href="{% url 'category_view' tops.0.category %}" title="">{{tops.0.category}}</a></span>
                                 <h4><a href="{% url 'blog_detail' tops.0.slug %}" title="">{{tops.0.title}}</a></h4>
                                 <small><a href="{% url 'blog_detail' tops.0.slug %}" title="">{{tops.0.created_at}}</a></small>
                                 <small><a href="tech-author.html" title="">{{tops.0.user.username}}</a></small>
@@ -27,7 +27,7 @@
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{tops.1.category}}</a></span>
+                                <span class="bg-orange"><a href="{% url 'category_view' tops.1.category %}" title="">{{tops.1.category}}</a></span>
                                 <h4><a href="{% url 'blog_detail' tops.1.slug %}" title="">{{tops.1.title}}</a></h4>
                                 <small><a href="{% url 'blog_detail' tops.1.slug %}" title="">{{tops.1.created_at}}</a></small>
                                 <small><a href="tech-author.html" title="">{{tops.1.user.username}}</a></small>
@@ -43,7 +43,7 @@
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{tops.2.category}}</a></span>
+                                <span class="bg-orange"><a href="{% url 'category_view' tops.2.category %}" title="">{{tops.2.category}}</a></span>
                                 <h4><a href="{% url 'blog_detail' tops.2.slug %}" title="">{{tops.2.title}}</a></h4>
                                 <small><a href="{% url 'blog_detail' tops.2.slug %}" title="">{{tops.2.created_at}}</a></small>
                                 <small><a href="tech-author.html" title="">{{tops.2.user.username}}</a></small>
@@ -79,7 +79,7 @@
                           <div class="blog-meta big-meta col-md-8">
                               <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                               <p>{{blog.summary|safe}}</p>
-                              <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title="">{{blog.category}}</a></small>
+                              <small class="firstsmall"><a class="bg-orange" href="{% url 'category_view' blog.category %}" title="">{{blog.category}}</a></small>
                               <small><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.created_at}}</a></small>
                               <small><a href="{% url 'blog_detail' blog.slug %}" title="">by {{blog.user.username}}</a></small>
                               <small><a href="{% url 'blog_detail' blog.slug %}" title=""><i class="fa fa-eye"></i> {{blog.views}}</a></small>

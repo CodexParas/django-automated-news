@@ -3,8 +3,6 @@ import random
 from .form import *
 from django.contrib.auth import logout
 
-
-
 def home(request):
     popular_posts = BlogModel.objects.order_by("-views")[:3]
     tops = BlogModel.objects.order_by("-created_at")[:3]
@@ -34,10 +32,21 @@ def page(request,no):
     context = {'blogs': blogs,'tops': tops,'no':no,'view_op':view_op, 'popular_posts' : popular_posts}
     return render(request, 'page.html', context)
 
+def category_view(request,cat):
+    cat = cat.capitalize()
+    category = Category.objects.get(name=cat)
+    popular_posts = BlogModel.objects.order_by("-views")[:3]
+    blogs = BlogModel.objects.filter(category=category)
+    for blog in blogs:
+        blog.summary = (blog.summary.split('.')[0])+'.'
+    context = {'blogs': blogs,'popular_posts' : popular_posts, 'cat':cat}
+    return render(request, 'category.html', context)
+
 def blog_detail(request, slug):
     blogs = list(BlogModel.objects.all())
     popular_posts = BlogModel.objects.order_by("-views")[:3]
     random_blogs = random.sample(blogs,2)
+    print(random_blogs)
     #context = {}
     next_post='0'
     try:
