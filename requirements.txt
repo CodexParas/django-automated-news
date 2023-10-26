@@ -7,4 +7,7 @@ pytz==2022.1
 sqlparse==0.4.2
 tzdata==2022.1
 django-crontab==0.7.1
-requests
+requests==2.31.0
+bs4==0.0.1
+newspaper3k==0.2.8
+feedparser==6.0.10
