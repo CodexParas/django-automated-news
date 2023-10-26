@@ -1,7 +1,6 @@
-{% extends "base_new.html" %}
+{% extends "base.html" %}
 
 {% block start %}
-        
         <section class="section single-wrapper">
             <div class="container">
                 <div class="row">
@@ -15,7 +14,7 @@
 
                                 <span class="color-orange"><a href="tech-category-01.html" title="">{{blog_obj.category}}</a></span>
 
-                                <h3>{{blog.title}}</h3>
+                                <h3>{{blog_obj.title}}</h3>
 
                                 <div class="blog-meta big-meta">
                                     <small><a href="{% url 'blog_detail' blog_obj.slug %}" title="">{{blog_obj.created_at}}</a></small>
@@ -30,24 +29,19 @@
 
                             <div class="blog-content">  
                                 <div class="pp">
-                                    {{blog_obj.content}}
+                                    {{blog_obj.content|safe}}
                                 </div><!-- end pp -->
                             </div><!-- end content -->
 
                             <div class="blog-title-area">
                                 <div class="tag-cloud-single">
                                     <span>Tags</span>
-                                    <small><a href="#" title="">lifestyle</a></small>
-                                    <small><a href="#" title="">colorful</a></small>
-                                    <small><a href="#" title="">trending</a></small>
-                                    <small><a href="#" title="">another tag</a></small>
+                                    {% for tag in tags %}
+                                    <small>{{tag}}</small>
+                                    {% endfor %}
                                 </div><!-- end meta -->
                             </div><!-- end title -->
-
-                            
-
                             <hr class="invis1">
-
                             <div class="custombox prevnextpost clearfix">
                                 <div class="row">
                                     <div class="col-lg-6">

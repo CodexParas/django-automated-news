@@ -1,32 +1,32 @@
+from .get_news import get_article
+import urllib.request
 import requests
 from .models import *
 from pathlib import Path
-BASE_DIR = Path(__file__).resolve().parent.parent
 from django.contrib.auth.models import User
 user = User.objects.get(username="parasgupta")
-print(BASE_DIR)
-
+BASE_DIR = Path(__file__).resolve().parent.parent
 cat = list(Category.objects.values_list('name', flat=True))
+prev_list = list(BlogModel.objects.values_list('source_url', flat=True))
 def task():
-    print("Running....")
-    img_url = 'https://blog.finxter.com/wp-content/uploads/2022/04/greenland_01a.jpg'
-    response = requests.get(img_url)
-    if response.status_code:
-        fp = open(f'{BASE_DIR}/public/static/blog/greenland_01a.png', 'wb')
-        fp.write(response.content)
-        fp.close()
-    title="try 1"
-    #slug=title.replace(' ','-')
-    content="DEMO"
-    image="blog/greenland_01a.png"
-    cate="News"
+    news = get_article(prev_list)
+    img_url = news['image']
+    image_name = img_url.split("/")[-1]
+    urllib.request.urlretrieve(img_url, f'{BASE_DIR}/public/static/blog/{image_name}')
+    title=news['title']
+    slug=title.replace(' ','-')
+    content=news['content']
+    image=f"blog/{image_name}"
+    cate=news['category']
     if cate not in cat:
         ca = Category(name=cate)
         ca.save()
+        category = Category.objects.get(name=cate)
     else:
         category = Category.objects.get(name=cate)
     blog_obj = BlogModel.objects.create(
                 user=user, title=title,
-                content=content, image=image, category=category, slug='try-1'
+                content=content, image=image, category=category, slug=slug, summary=news['summary'], source_url=news['source']
             )
+    blog_obj.set_tags(news['tags'])
     blog_obj.save()

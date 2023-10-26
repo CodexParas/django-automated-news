@@ -147,7 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 CRONJOBS = [
-('* * * * *', 'home.cron.task')
+('1 * * * *', 'home.cron.task')
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
