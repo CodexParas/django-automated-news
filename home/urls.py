@@ -9,4 +9,5 @@ urlpatterns = [
     path('news/<slug>', blog_detail, name="blog_detail"),
     path('category/<cat>', category_view, name="category_view"),
     path("feed/", LatestEntriesFeed()),
+    path("error",error,name='error')
 ]

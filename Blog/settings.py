@@ -140,5 +140,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 CRONJOBS = [
-('1 * * * *', 'home.cron.task')
+('* * * * *', 'home.cron.task')
 ]

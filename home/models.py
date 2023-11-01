@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from froala_editor.fields import FroalaField
-from .helpers import *
+from home.helpers import *
 from django.db.utils import IntegrityError
 import json
 from slugify import slugify
