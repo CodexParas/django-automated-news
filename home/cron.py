@@ -13,7 +13,11 @@ from .helpers import generate_img
 
 from django.contrib.auth.models import User
 
-user = User.objects.get(username="parasgupta")
+try:
+    user = User.objects.get(username="parasgupta")
+except:
+    c_user = User.objects.create_user("parasgupta", email = None, password = "1234")
+    user = User.objects.get(username="parasgupta")
 
 cat = list(Category.objects.values_list('name', flat=True))
 prev_list = list(BlogModel.objects.values_list('title', flat=True))
