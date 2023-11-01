@@ -8,7 +8,7 @@ def error(request):
 def home(request):
     if BlogModel.objects.count()!=0:
         popular_posts = BlogModel.objects.order_by("-views")[:3]
-        if BlogModel.objects.count()>3:
+        if BlogModel.objects.count()>2:
             tops = BlogModel.objects.order_by("-created_at")[:3]
         else:
             tops = 'Null'
