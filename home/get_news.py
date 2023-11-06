@@ -42,6 +42,7 @@ def post_content(article,source):
     # print(content)
     content = content.replace('<p></p>','')
     content = content.replace('<br/>','<br>')
+    content = content.replace('<p><br></p>','')
     #print(content)
     article.nlp()
     category = source.split('/')[3].capitalize()
