@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import random
 from django.contrib.auth import logout
-from .models import BlogModel
+from .models import *
 def error(request):
     return render(request,'error.html')
 
