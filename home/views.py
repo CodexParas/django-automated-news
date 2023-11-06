@@ -6,16 +6,16 @@ def error(request):
     return render(request,'error.html')
 
 def home(request):
-    if BlogModel.objects.count()!=0:
-        popular_posts = BlogModel.objects.order_by("-views")[:3]
-        if BlogModel.objects.count()>2:
-            tops = BlogModel.objects.order_by("-created_at")[:3]
+    if NewsModel.objects.count()!=0:
+        popular_posts = NewsModel.objects.order_by("-views")[:3]
+        if NewsModel.objects.count()>2:
+            tops = NewsModel.objects.order_by("-created_at")[:3]
         else:
             tops = 'Null'
         view_op=1
-        if BlogModel.objects.count()<9:
+        if NewsModel.objects.count()<9:
             view_op=0
-        blogs = BlogModel.objects.order_by("-created_at")[:9]
+        blogs = NewsModel.objects.order_by("-created_at")[:9]
         for blog in blogs:
             blog.summary = (blog.summary.split('.')[0])+'.'
         context = {'blogs': blogs,'tops': tops, 'view_op':view_op, 'popular_posts' : popular_posts}
@@ -24,17 +24,17 @@ def home(request):
         return redirect('error')
 
 def page(request,no):
-    popular_posts = BlogModel.objects.order_by("-views")[:3]
-    tops = BlogModel.objects.order_by("-created_at")[:3]
+    popular_posts = NewsModel.objects.order_by("-views")[:3]
+    tops = NewsModel.objects.order_by("-created_at")[:3]
     post_no=9
-    if no=='1' or BlogModel.objects.count()//post_no<int(no)-1:
+    if no=='1' or NewsModel.objects.count()//post_no<int(no)-1:
         return redirect('/')
     view_op=1
-    if BlogModel.objects.count()//post_no<int(no):
+    if NewsModel.objects.count()//post_no<int(no):
         view_op=0
     no = int(no)
     start=(no-1)*post_no
-    blogs = BlogModel.objects.order_by("-created_at")[start:start+post_no]
+    blogs = NewsModel.objects.order_by("-created_at")[start:start+post_no]
     for blog in blogs:
         blog.summary = (blog.summary.split('.')[0])+'.'
     context = {'blogs': blogs,'tops': tops,'no':no,'view_op':view_op, 'popular_posts' : popular_posts}
@@ -43,31 +43,31 @@ def page(request,no):
 def category_view(request,cat):
     cat = cat.capitalize()
     category = Category.objects.get(name=cat)
-    popular_posts = BlogModel.objects.order_by("-views")[:3]
-    blogs = BlogModel.objects.filter(category=category)
+    popular_posts = NewsModel.objects.order_by("-views")[:3]
+    blogs = NewsModel.objects.filter(category=category)
     for blog in blogs:
         blog.summary = (blog.summary.split('.')[0])+'.'
     context = {'blogs': blogs,'popular_posts' : popular_posts, 'cat':cat}
     return render(request, 'category.html', context)
 
 def blog_detail(request, slug):
-    blogs = list(BlogModel.objects.all())
-    popular_posts = BlogModel.objects.order_by("-views")[:3]
+    blogs = list(NewsModel.objects.all())
+    popular_posts = NewsModel.objects.order_by("-views")[:3]
     try:
         random_blogs = random.sample(blogs,2)
     except:
         random_blogs = 'Null'
     #print(random_blogs)
     try:
-        blog_obj = BlogModel.objects.filter(slug=slug).first()
+        blog_obj = NewsModel.objects.filter(slug=slug).first()
         # print(blog_obj)
         i = blogs.index(blog_obj)
-        if blog_obj.id != BlogModel.objects.last().id:
+        if blog_obj.id != NewsModel.objects.last().id:
             next_post = blogs[i+1]
         else:
             next_post = 'Null'
         # print(next_post)
-        if BlogModel.objects.count()>1:
+        if NewsModel.objects.count()>1:
             previous_post = blogs[i-1]
         else:
             previous_post = 'Null'
@@ -80,5 +80,5 @@ def blog_detail(request, slug):
         context = {'blog_obj':blog_obj,'previous_post':previous_post,'next_post':next_post,'random_blogs':random_blogs, 'popular_posts' : popular_posts, 'tags' : tags}
     except Exception as e:
         print(e)
-    #print(context)
+    print(context)
     return render(request, 'blog.html', context)

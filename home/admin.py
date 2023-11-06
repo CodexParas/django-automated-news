@@ -3,6 +3,6 @@ from django.contrib import admin
 # Register your models here.
 from .models import *
 
-admin.site.register(BlogModel)
+admin.site.register(NewsModel)
 admin.site.register(Profile)
 admin.site.register(Category)

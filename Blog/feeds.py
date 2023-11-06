@@ -1,6 +1,6 @@
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
-from home.models import BlogModel
+from home.models import NewsModel
 
 
 class LatestEntriesFeed(Feed):
@@ -9,7 +9,7 @@ class LatestEntriesFeed(Feed):
     description = "Updates on changes and additions to police beat central."
 
     def items(self):
-        return BlogModel.objects.order_by("-created_at")
+        return NewsModel.objects.order_by("-created_at")
 
     def item_title(self, item):
         return item.title

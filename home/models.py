@@ -17,7 +17,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class BlogModel(models.Model):
+class NewsModel(models.Model):
     title = models.CharField(max_length=1000)
     id = models.AutoField(primary_key=True)
     content = FroalaField()
@@ -45,7 +45,7 @@ class BlogModel(models.Model):
     def save(self, *args, **kwargs):
         try:
             self.slug=slugify(self.title)
-            super(BlogModel, self).save(*args, **kwargs)
+            super(NewsModel, self).save(*args, **kwargs)
         except IntegrityError:
             self.slug = generate_slug(self.title)
-            super(BlogModel, self).save(*args, **kwargs)
+            super(NewsModel, self).save(*args, **kwargs)
