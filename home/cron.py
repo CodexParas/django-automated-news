@@ -1,9 +1,7 @@
 import os
-import sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 from .get_news import get_article
 import urllib.request
-import requests
 from .models import *
 from .helpers import *
 from django.contrib.auth.models import User
