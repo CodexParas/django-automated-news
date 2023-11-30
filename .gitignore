@@ -141,3 +141,4 @@ cython_debug/
 
 # Media Files
 public/static/blog
+.DS_Store
