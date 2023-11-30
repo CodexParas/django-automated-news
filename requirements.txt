@@ -1,4 +1,4 @@
-asgiref==3.5.2
+asgiref
 Django==4.2.7
 django-froala-editor==4.0.13
 djangorestframework==3.13.1

@@ -2,7 +2,7 @@ from django.urls import path
 from .views import *
 from . import views
 from django.views.generic import RedirectView
-from Blog.feeds import LatestEntriesFeed
+from News.feeds import LatestEntriesFeed
 urlpatterns = [
     path('', home, name="home"),
     path('page/<no>', page, name="page"),
